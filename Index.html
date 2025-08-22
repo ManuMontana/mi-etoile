@@ -50,10 +50,15 @@
   </style>
 </head>
 <body>
-  <!-- Música de fondo -->
-  <audio autoplay loop>
-    <source src="tu-cancion.mp3" type="audio/mpeg">
-  </audio>
+  <!-- Canción Eres de Café Tacvba desde Spotify -->
+<div style="position: fixed; bottom: 10px; left: 10px; z-index: 999;">
+  <iframe style="border-radius:12px" 
+          src="https://open.spotify.com/embed/track/3k7ne7G3RgxJXec9lUqlpu?utm_source=generator" 
+          width="250" height="80" frameBorder="0" 
+          allowfullscreen="" 
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+  </iframe>
+</div>
 
   <!-- Contenedor de frases e imágenes -->
   <div id="container"></div>
@@ -80,7 +85,7 @@
       "IMG_0786.jpeg",
       "IMG_0740.jpeg",
       "IMG_0177.jpeg",
-      "corazon.png"
+      "IMG_0165.jpeg"
     ];
 
     const container = document.getElementById("container");
