@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Código de Amor</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: #FFD700;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .floating {
+      position: absolute;
+      font-size: 20px;
+      font-weight: bold;
+      color: gold;
+      white-space: nowrap;
+      animation: float 20s linear infinite;
+    }
+
+    .floating img {
+      width: 60px;
+      height: auto;
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(255,255,255,0.6);
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      to { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Música de fondo -->
+  <audio autoplay loop>
+    <source src="tu-cancion.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Contenedor de frases e imágenes -->
+  <div id="container"></div>
+
+  <!-- Canvas para estrellas -->
+  <canvas id="stars"></canvas>
+
+  <script>
+    // Frases personalizadas
+    const phrases = [
+      "Te Amo 💖",
+      "Eres preciosa ✨",
+      "Mi vida 🌹",
+      "Me encantas 😍",
+      "My love 💕",
+      "Amor de mi vida 🌙"
+    ];
+
+    // Imágenes personalizadas (puedes poner URLs o archivos locales)
+    const images = [
+      "foto1.jpg",
+      "foto2.jpg",
+      "foto3.jpg",
+      "corazon.png"
+    ];
+
+    const container = document.getElementById("container");
+
+    function createFloating() {
+      const element = document.createElement("div");
+      element.className = "floating";
+
+      if (Math.random() > 0.5) {
+        // Mostrar frase
+        element.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+        element.style.fontSize = (15 + Math.random() * 25) + "px";
+        element.style.color = "gold";
+      } else {
+        // Mostrar imagen
+        const img = document.createElement("img");
+        img.src = images[Math.floor(Math.random() * images.length)];
+        element.appendChild(img);
+      }
+
+      element.style.left = Math.random() * window.innerWidth + "px";
+      element.style.top = window.innerHeight + "px";
+      element.style.animationDuration = (10 + Math.random() * 15) + "s";
+      container.appendChild(element);
+
+      setTimeout(() => {
+        container.removeChild(element);
+      }, 20000);
+    }
+
+    setInterval(createFloating, 1200);
+
+    // Estrellas animadas
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let stars = [];
+    for (let i = 0; i < 150; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        speed: Math.random() * 0.5
+      });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      for (let s of stars) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
+        ctx.fill();
+        s.y += s.speed;
+        if (s.y > canvas.height) s.y = 0;
+      }
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+  </script>
+</body>
+</html>
